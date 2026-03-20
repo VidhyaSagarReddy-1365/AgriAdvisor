@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<title>Signup - AgriAdvisor</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+<div class="hero">
+
+<div class="signup-card">
+
+<img src="assets/logo.png" class="login-logo" alt="AgriAdvisor Logo">
+
+<h2>AgriAdvisor</h2>
+<h3>Create Account</h3>
+
+<form onsubmit="registerUser(event)">
+
+<label>Full Name</label>
+<input type="text" id="name" placeholder="Enter your name" required>
+
+<label>Email</label>
+<input type="email" id="email" placeholder="Enter your email" required>
+
+<label>Password</label>
+<input type="password" id="password" placeholder="Enter password" required>
+
+<label>Confirm Password</label>
+<input type="password" id="confirmPassword" placeholder="Confirm password" required>
+
+<!-- FIXED SECURITY QUESTIONS -->
+
+<label>Security Question 1</label>
+<p class="question-text">What is your favorite food?</p>
+<input type="text" id="answer1" placeholder="Enter answer" required>
+
+<label>Security Question 2</label>
+<p class="question-text">What was your first school name?</p>
+<input type="text" id="answer2" placeholder="Enter answer" required>
+
+<button type="submit">Register</button>
+
+<p>
+Already have an account?
+<a href="login.html">Login</a>
+</p>
+
+</form>
+
+</div>
+
+</div>
+
+<script src="js/auth.js"></script>
+
+</body>
+</html>

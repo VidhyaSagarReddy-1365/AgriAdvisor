@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<title>Crop Prediction - AgriAdvisor</title>
+<link rel="stylesheet" href="css/style.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+
+/* ── PAGE LAYOUT ── */
+.predict-page {
+  min-height: 100vh;
+  background:
+    linear-gradient(rgba(0,0,0,0.52), rgba(0,0,0,0.52)),
+    url("assets/farm.jpg");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  padding-top: 70px;
+  font-family: 'Poppins', Arial, sans-serif;
+}
+
+/* ── HERO BANNER ── */
+.predict-hero {
+  text-align: center;
+  padding: 30px 20px 16px 20px;
+  color: white;
+}
+
+.predict-hero h1 {
+  font-size: 30px;
+  font-weight: 700;
+  color: #2ecc71;
+  margin: 0 0 8px 0;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+}
+
+.predict-hero p {
+  font-size: 14px;
+  color: rgba(255,255,255,0.8);
+  margin: 0 auto;
+  max-width: 500px;
+  line-height: 1.6;
+}
+
+/* ── STATS BAR ── */
+.stats-bar {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  padding: 14px 20px;
+  flex-wrap: wrap;
+}
+
+.stat-item {
+  background: rgba(255,255,255,0.10);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(46,204,113,0.25);
+  border-radius: 12px;
+  padding: 10px 22px;
+  text-align: center;
+  color: white;
+  min-width: 100px;
+}
+
+.stat-value {
+  font-size: 20px;
+  font-weight: 700;
+  color: #2ecc71;
+  line-height: 1;
+}
+
+.stat-label {
+  font-size: 11px;
+  color: rgba(255,255,255,0.7);
+  margin-top: 3px;
+}
+
+/* ── MAIN LAYOUT ── */
+.predict-main {
+  display: flex;
+  gap: 20px;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 20px 40px 20px;
+  align-items: flex-start;
+}
+
+/* ── FORM CARD ── */
+.predict-form-card {
+  background: rgba(255,255,255,0.97);
+  border-radius: 18px;
+  padding: 28px 32px;
+  flex: 1.2;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+}
+
+.form-card-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  padding-bottom: 14px;
+  border-bottom: 2px solid #e9fff3;
+}
+
+.form-card-header img {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 2px solid #2ecc71;
+  object-fit: cover;
+}
+
+.form-card-header h2 {
+  font-size: 18px;
+  color: #1a1a1a;
+  margin: 0;
+  font-weight: 700;
+}
+
+.form-card-header p {
+  font-size: 12px;
+  color: #888;
+  margin: 2px 0 0 0;
+}
+
+/* ── FORM GRID ── */
+.form-grid-2col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px 20px;
+}
+
+.form-group {
+  margin-bottom: 4px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #444;
+  margin-bottom: 4px;
+  font-family: 'Poppins', Arial, sans-serif;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 9px 12px;
+  border-radius: 8px;
+  border: 1.5px solid #e0e0e0;
+  font-size: 13.5px;
+  font-family: 'Poppins', Arial, sans-serif;
+  color: #333;
+  background: #fafafa;
+  transition: all 0.2s;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  border-color: #2ecc71;
+  background: white;
+  box-shadow: 0 0 0 3px rgba(46,204,113,0.12);
+}
+
+/* Section divider */
+.form-section-title {
+  grid-column: 1 / -1;
+  font-size: 11px;
+  font-weight: 700;
+  color: #2ecc71;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin: 10px 0 4px 0;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #e9fff3;
+  font-family: 'Poppins', Arial, sans-serif;
+}
+
+/* Submit button */
+.submit-btn {
+  width: 100%;
+  margin-top: 18px;
+  padding: 14px;
+  font-size: 15px;
+  font-weight: 700;
+  font-family: 'Poppins', Arial, sans-serif;
+  background: linear-gradient(135deg, #2ecc71, #1e8449);
+  border: none;
+  border-radius: 10px;
+  color: white;
+  cursor: pointer;
+  letter-spacing: 0.5px;
+  transition: all 0.3s;
+  box-shadow: 0 4px 15px rgba(46,204,113,0.35);
+}
+
+.submit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(46,204,113,0.45);
+}
+
+.submit-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ── RIGHT PANEL ── */
+.predict-right-panel {
+  flex: 0.8;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Glass cards */
+.info-card,
+.crop-list-card {
+  background: rgba(255,255,255,0.10);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.18);
+  border-radius: 16px;
+  padding: 20px;
+  color: white;
+}
+
+.info-card-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: #2ecc71;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Poppins', Arial, sans-serif;
+}
+
+/* Steps */
+.steps-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.steps-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 12px;
+  font-size: 12.5px;
+  color: rgba(255,255,255,0.85);
+  line-height: 1.5;
+  font-family: 'Poppins', Arial, sans-serif;
+}
+
+.step-num {
+  background: #2ecc71;
+  color: white;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: 700;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+/* Crop tags */
+.crop-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 8px;
+}
+
+.crop-tag {
+  background: rgba(46,204,113,0.18);
+  border: 1px solid rgba(46,204,113,0.35);
+  color: #a8f0c6;
+  border-radius: 20px;
+  padding: 3px 11px;
+  font-size: 11.5px;
+  font-weight: 500;
+  font-family: 'Poppins', Arial, sans-serif;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 820px) {
+  .predict-main { flex-direction: column; }
+  .form-grid-2col { grid-template-columns: 1fr; }
+  .stats-bar { gap: 10px; }
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<div class="navbar">
+  <div class="nav-left">
+    <img src="assets/logo.png" class="nav-logo" alt="Logo">
+    <span class="nav-title">AgriAdvisor</span>
+  </div>
+  <div class="nav-right">
+    <a href="predict.html" class="active">Home</a>
+    <a href="history.html">History</a>
+    <a href="profile.html">Profile</a>
+    <a href="#" onclick="logoutUser()">Logout</a>
+  </div>
+</div>
+
+<!-- PAGE -->
+<div class="predict-page">
+
+  <!-- HERO -->
+  <div class="predict-hero">
+    <h1>Smart Crop Advisory</h1>
+    <p>Enter your soil and climate data to get AI-powered crop recommendations with 30-day market price forecasts</p>
+  </div>
+
+  <!-- STATS BAR -->
+  <div class="stats-bar">
+    <div class="stat-item">
+      <div class="stat-value">22+</div>
+      <div class="stat-label">Crop Varieties</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value">95%</div>
+      <div class="stat-label">Accuracy</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value">30d</div>
+      <div class="stat-label">Price Forecast</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-value">XGB</div>
+      <div class="stat-label">AI Model</div>
+    </div>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <div class="predict-main">
+
+    <!-- LEFT: FORM CARD -->
+    <div class="predict-form-card">
+
+      <div class="form-card-header">
+        <img src="assets/logo.png" alt="Logo">
+        <div>
+          <h2>Crop Advisory Input</h2>
+          <p>Fill in your field conditions to get started</p>
+        </div>
+      </div>
+
+      <form onsubmit="predictCrop(event)">
+        <div class="form-grid-2col">
+
+          <!-- SOIL NUTRIENTS -->
+          <div class="form-section-title">🌱 Soil Nutrients</div>
+
+          <div class="form-group">
+            <label>Nitrogen (N)</label>
+            <input type="number" id="n" min="0" max="140" placeholder="0 - 140" required>
+          </div>
+
+          <div class="form-group">
+            <label>Phosphorus (P)</label>
+            <input type="number" id="p" min="5" max="145" placeholder="5 - 145" required>
+          </div>
+
+          <div class="form-group">
+            <label>Potassium (K)</label>
+            <input type="number" id="k" min="5" max="205" placeholder="5 - 205" required>
+          </div>
+
+          <div class="form-group">
+            <label>Soil pH</label>
+            <input type="number" id="ph" min="3" max="10" step="0.1" placeholder="3.0 - 10.0" required>
+          </div>
+
+          <!-- CLIMATE -->
+          <div class="form-section-title">🌤️ Climate Conditions</div>
+
+          <div class="form-group">
+            <label>Temperature (°C)</label>
+            <input type="number" id="temperature" min="0" max="60" placeholder="e.g. 25" required>
+          </div>
+
+          <div class="form-group">
+            <label>Humidity (%)</label>
+            <input type="number" id="humidity" min="0" max="100" placeholder="0 - 100" required>
+          </div>
+
+          <div class="form-group">
+            <label>Rainfall (mm)</label>
+            <input type="number" id="rainfall" min="0" max="300" placeholder="e.g. 200" required>
+          </div>
+
+          <div class="form-group">
+            <label>Irrigation Type</label>
+            <select id="irrigation" required>
+              <option value="">Select</option>
+              <option>Basin</option>
+              <option>Drip</option>
+              <option>Flood</option>
+              <option>Furrow</option>
+              <option>Rainfed</option>
+              <option>Sprinkler</option>
+            </select>
+          </div>
+
+          <!-- MARKET -->
+          <div class="form-section-title">🏪 Market Information</div>
+
+          <div class="form-group">
+            <label>Water Availability</label>
+            <select id="water" required>
+              <option value="">Select</option>
+              <option>High</option>
+              <option>Medium</option>
+              <option>Low</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Market Distance</label>
+            <select id="distance" required>
+              <option value="">Select</option>
+              <option>0-30 km</option>
+              <option>0-50 km</option>
+              <option>0-100 km</option>
+              <option>0-150 km</option>
+              <option>50-150 km</option>
+              <option>50-200 km</option>
+              <option>50-300 km</option>
+              <option>100-300 km</option>
+            </select>
+          </div>
+
+          <div class="form-group" style="grid-column: 1 / -1;">
+            <label>Market Type</label>
+            <select id="market" required>
+              <option value="">Select Market Type</option>
+              <option>Export/Retail</option>
+              <option>Export/Wine Industry</option>
+              <option>Government Mandi/Wholesale</option>
+              <option>Jute Processing Industry</option>
+              <option>Local Retail Market</option>
+              <option>Mandi</option>
+              <option>Mandi/Wholesale</option>
+              <option>Processing/Export</option>
+              <option>Retail Market</option>
+              <option>Retail/City Market/Processing</option>
+              <option>Retail/Export</option>
+              <option>Retail/Processing</option>
+              <option>Textile Mills/Industry</option>
+              <option>Wholesale</option>
+              <option>Wholesale Market</option>
+              <option>Wholesale/Feed Industry</option>
+              <option>Wholesale/Processing</option>
+              <option>Wholesale/Retail</option>
+            </select>
+          </div>
+
+        </div>
+
+        <button type="submit" class="submit-btn" id="submit-btn">
+          🌱 Get Recommendation
+        </button>
+
+      </form>
+
+    </div>
+
+    <!-- RIGHT: INFO PANELS -->
+    <div class="predict-right-panel">
+
+      <!-- How it works -->
+      <div class="info-card">
+        <div class="info-card-title">⚡ How It Works</div>
+        <ul class="steps-list">
+          <li>
+            <span class="step-num">1</span>
+            Enter your soil nutrients (N, P, K) and pH level
+          </li>
+          <li>
+            <span class="step-num">2</span>
+            Provide climate data — temperature, humidity and rainfall
+          </li>
+          <li>
+            <span class="step-num">3</span>
+            Select irrigation method and water availability
+          </li>
+          <li>
+            <span class="step-num">4</span>
+            XGBoost AI model predicts best 3 crops for your conditions
+          </li>
+          <li>
+            <span class="step-num">5</span>
+            Prophet model forecasts market price for next 30 days
+          </li>
+        </ul>
+      </div>
+
+      <!-- Supported crops -->
+      <div class="crop-list-card">
+        <div class="info-card-title"> Supported Crops</div>
+        <div class="crop-tags">
+          <span class="crop-tag">Rice</span>
+          <span class="crop-tag">Maize</span>
+          <span class="crop-tag">Wheat</span>
+          <span class="crop-tag">Banana</span>
+          <span class="crop-tag">Mango</span>
+          <span class="crop-tag">Grapes</span>
+          <span class="crop-tag">Coffee</span>
+          <span class="crop-tag">Coconut</span>
+          <span class="crop-tag">Orange</span>
+          <span class="crop-tag">Apple</span>
+          <span class="crop-tag">Watermelon</span>
+          <span class="crop-tag">Papaya</span>
+          <span class="crop-tag">Cotton</span>
+          <span class="crop-tag">Jute</span>
+          <span class="crop-tag">Chickpea</span>
+          <span class="crop-tag">Lentil</span>
+          <span class="crop-tag">Mungbean</span>
+          <span class="crop-tag">Blackgram</span>
+          <span class="crop-tag">Pigeonpeas</span>
+          <span class="crop-tag">Kidneybeans</span>
+          <span class="crop-tag">Muskmelon</span>
+          <span class="crop-tag">Pomegranate</span>
+          <span class="crop-tag">Mothbeans</span>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<script src="js/auth.js"></script>
+<script src="js/predict.js"></script>
+
+</body>
+</html>

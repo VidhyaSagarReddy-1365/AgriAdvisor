@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<title>History - AgriAdvisor</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<div class="navbar">
+  <div class="nav-left">
+    <img src="assets/logo.png" class="nav-logo" alt="Logo">
+    <span class="nav-title">AgriAdvisor</span>
+  </div>
+ <div class="nav-right">
+    <a href="predict.html">Home</a>
+    <a href="history.html" class="active">History</a>
+    <a href="profile.html">Profile</a>
+    <a href="#" onclick="logoutUser()">Logout</a>
+</div>
+</div>
+
+<!-- MAIN -->
+<div class="main-container">
+  <div class="history-card">
+
+    <img src="assets/logo.png" class="login-logo" alt="Logo">
+    <h2>AgriAdvisor</h2>
+    <h3>Prediction History</h3>
+
+    <div id="history-list">
+      <p class="loading-text">Loading your history...</p>
+    </div>
+
+    <button onclick="window.location.href='predict.html'" style="margin-top:20px;">
+      + New Prediction
+    </button>
+
+  </div>
+</div>
+
+<script src="js/auth.js"></script>
+<script src="js/history.js"></script>
+
+</body>
+</html>
