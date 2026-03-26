@@ -1,0 +1,66 @@
+# ========================
+# Python
+# ========================
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+
+# ========================
+# Virtual Environment
+# ========================
+venv/
+env/
+backend/venv/
+
+# ========================
+# Environment Variables
+# ========================
+.env
+*.env
+
+# ========================
+# ML Model Files (optional)
+# ========================
+# Model_training/*.pkl
+
+# ========================
+# Dataset Files (optional)
+# ========================
+# Model_training/*.csv
+
+# ========================
+# OS Files
+# ========================
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ========================
+# IDE / Editor
+# ========================
+.vscode/
+.idea/
+*.code-workspace
+
+# ========================
+# Logs
+# ========================
+*.log
+logs/
+
+# ========================
+# Frontend
+# ========================
+node_modules/
+dist/
+
+# ========================
+# Misc
+# ========================
+*.egg-info/
+build/
+.pytest_cache/
+.coverage
+*.sqlite3
