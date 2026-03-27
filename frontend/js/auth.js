@@ -4,7 +4,8 @@
 // via FastAPI backend with JWT
 // ============================================
 
-const API_URL = "http://127.0.0.1:8000";
+// ⚠️ Update this URL after Render deployment
+const API_URL = "https://agri-advisor-backend.onrender.com";
 
 
 /* ================= LOGIN ================= */
@@ -64,11 +65,11 @@ async function registerUser(event) {
 
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-    if (!name)                       { alert("Name cannot be empty.");            return; }
-    if (!emailPattern.test(email))   { alert("Enter a valid email.");             return; }
-    if (password.length < 6)         { alert("Password must be 6+ characters.");  return; }
+    if (!name)                        { alert("Name cannot be empty.");            return; }
+    if (!emailPattern.test(email))    { alert("Enter a valid email.");             return; }
+    if (password.length < 6)          { alert("Password must be 6+ characters.");  return; }
     if (password !== confirmPassword) { alert("Passwords do not match.");          return; }
-    if (!answer1 || !answer2)        { alert("Please answer security questions."); return; }
+    if (!answer1 || !answer2)         { alert("Please answer security questions."); return; }
 
     try {
         const response = await fetch(`${API_URL}/register`, {
