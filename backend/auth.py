@@ -7,13 +7,17 @@ from passlib.context import CryptContext
 from jose import JWTError, jwt
 from fastapi import HTTPException, Header
 from datetime import datetime, timedelta
+from dotenv import load_dotenv
 from typing import Optional
+import os
+
+load_dotenv()
 
 # ============================================
 # CONFIG
 # ============================================
 
-SECRET_KEY         = "agriadvisor-secret-key-change-this"
+SECRET_KEY         = os.getenv("SECRET_KEY", "fallback-secret-change-this")
 ALGORITHM          = "HS256"
 TOKEN_EXPIRE_HOURS = 24
 
@@ -29,13 +33,11 @@ pwd_context = CryptContext(
 
 
 def hash_password(plain: str) -> str:
-    # Truncate to 72 bytes max — bcrypt limitation
     plain = plain[:72]
     return pwd_context.hash(plain)
 
 
 def verify_password(plain: str, hashed: str) -> bool:
-    # Truncate same way before verifying
     plain = plain[:72]
     return pwd_context.verify(plain, hashed)
 
@@ -45,7 +47,7 @@ def verify_password(plain: str, hashed: str) -> bool:
 # ============================================
 
 def create_token(data: dict) -> str:
-    payload      = data.copy()
+    payload        = data.copy()
     payload["exp"] = datetime.utcnow() + timedelta(hours=TOKEN_EXPIRE_HOURS)
     return jwt.encode(payload, SECRET_KEY, algorithm=ALGORITHM)
 
