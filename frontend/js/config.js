@@ -1,0 +1,1 @@
+const API_URL = "https://agriadvisor-qxhj.onrender.com";

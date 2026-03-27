@@ -5,7 +5,7 @@
 // ============================================
 
 // ⚠️ Update this URL after Render deployment
-const API_URL = "https://agri-advisor-backend.onrender.com";
+const API_URL = "https://agriadvisor-qxhj.onrender.com";
 
 
 /* ================= LOGIN ================= */
