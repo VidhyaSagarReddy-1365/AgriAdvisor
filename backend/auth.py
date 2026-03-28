@@ -26,9 +26,8 @@ TOKEN_EXPIRE_HOURS = 24
 # ============================================
 
 pwd_context = CryptContext(
-    schemes=["bcrypt"],
-    deprecated="auto",
-    bcrypt__rounds=12
+    schemes=["bcrypt_sha256"],
+    deprecated="auto"
 )
 
 
