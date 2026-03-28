@@ -1,1 +1,1 @@
-const API_URL = "https://agriadvisor-qxhj.onrender.com";
+const API_BASE_URL = "https://agriadvisor-qxhj.onrender.com";
