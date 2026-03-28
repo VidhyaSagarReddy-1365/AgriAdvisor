@@ -34,8 +34,13 @@ app = FastAPI(title="AgriAdvisor API", version="1.0.0")
 
 app.add_middleware(
     CORSMiddleware,
-  allow_origins=["*"],
-  allow_credentials=False,
+    allow_origins=[
+        "https://agri-advisor-gilt.vercel.app",
+        "http://localhost:3000",
+        "http://localhost:8000",
+        "*"
+    ],
+    allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
 )
