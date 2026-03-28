@@ -4,8 +4,8 @@
 // via FastAPI backend with JWT
 // ============================================
 
-// ⚠️ Update this URL after Render deployment
-const API_URL = "https://agriadvisor-qxhj.onrender.com";
+// // ⚠️ Update this URL after Render deployment
+// const API_URL = "https://agriadvisor-qxhj.onrender.com";
 
 
 /* ================= LOGIN ================= */
