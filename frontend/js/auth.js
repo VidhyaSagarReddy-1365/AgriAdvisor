@@ -23,7 +23,7 @@ async function loginUser(event) {
     }
 
     try {
-        const response = await fetch(`${API_URL}/login`, {
+        const response = await fetch(`${API_BASE_URL}/login`, {
             method:  "POST",
             headers: { "Content-Type": "application/json" },
             body:    JSON.stringify({ email, password })
@@ -72,7 +72,7 @@ async function registerUser(event) {
     if (!answer1 || !answer2)         { alert("Please answer security questions."); return; }
 
     try {
-        const response = await fetch(`${API_URL}/register`, {
+        const response = await fetch(`${API_BASE_URL}/register`, {
             method:  "POST",
             headers: { "Content-Type": "application/json" },
             body:    JSON.stringify({ name, email, password, answer1, answer2 })
@@ -112,7 +112,7 @@ async function resetPassword(event) {
     }
 
     try {
-        const response = await fetch(`${API_URL}/reset-password`, {
+        const response = await fetch(`${API_BASE_URL}/reset-password`, {
             method:  "POST",
             headers: { "Content-Type": "application/json" },
             body:    JSON.stringify({
