@@ -80,8 +80,11 @@ def predict_price(crop_name: str):
         forecast = model.predict(future)
         price    = forecast["yhat"].iloc[-1]
         return round(float(price), 2)
-    except Exception:
-        return "N/A"
+    except Exception as e:
+        import traceback
+        print(f"Prophet error for {crop_name}: {e}")
+        traceback.print_exc()
+        return f"Err: {type(e).__name__} {e}"
 
 
 # ============================================
