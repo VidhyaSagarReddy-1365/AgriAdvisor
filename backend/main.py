@@ -123,6 +123,8 @@ class ResetPasswordRequest(BaseModel):
 
 
 class ChangePasswordRequest(BaseModel):
+    answer1: str
+    answer2: str
     new_password: str
 
 
@@ -334,10 +336,22 @@ def change_password(
     current_user: dict = Depends(get_current_user)
 ):
     try:
+        user = get_user_by_email(current_user["email"])
+        if not user:
+            raise HTTPException(status_code=404, detail="User not found.")
+
+        if (
+            user.get("answer1", "") != req.answer1.strip().lower() or
+            user.get("answer2", "") != req.answer2.strip().lower()
+        ):
+            raise HTTPException(status_code=401, detail="Security answers incorrect.")
+
         from database import update_password
         update_password(current_user["email"], hash_password(req.new_password))
         return {"message": "Password changed successfully"}
 
+    except HTTPException:
+        raise
     except Exception as e:
         print("CHANGE PASSWORD ERROR:", traceback.format_exc())
         raise HTTPException(status_code=500, detail=str(e))

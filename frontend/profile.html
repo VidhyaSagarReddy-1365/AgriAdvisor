@@ -47,13 +47,25 @@
     <div class="change-password-section">
       <h4>Change Password</h4>
 
-      <label>New Password</label>
-      <input type="password" id="new-password" placeholder="Enter new password">
+      <button id="toggle-password-btn" onclick="togglePasswordForm()">Update password</button>
 
-      <label>Confirm Password</label>
-      <input type="password" id="confirm-password" placeholder="Confirm new password">
+      <div id="password-form-container" style="display: none; margin-top: 15px;">
+        <label>Security Question 1</label>
+        <p class="question-text" style="font-size: 0.85rem; color: #555; margin-bottom: 5px; margin-top: 2px;">What is your favorite food?</p>
+        <input type="text" id="answer1" placeholder="Enter answer">
+        
+        <label>Security Question 2</label>
+        <p class="question-text" style="font-size: 0.85rem; color: #555; margin-bottom: 5px; margin-top: 2px;">What was your first school name?</p>
+        <input type="text" id="answer2" placeholder="Enter answer">
 
-      <button onclick="changePassword()">Update Password</button>
+        <label>New Password</label>
+        <input type="password" id="new-password" placeholder="Enter new password">
+
+        <label>Confirm Password</label>
+        <input type="password" id="confirm-password" placeholder="Confirm new password">
+
+        <button onclick="changePassword()" style="margin-top: 10px;">Submit Changes</button>
+      </div>
     </div>
 
     <!-- Logout -->

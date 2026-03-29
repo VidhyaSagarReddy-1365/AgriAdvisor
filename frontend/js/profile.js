@@ -44,14 +44,33 @@ async function loadProfile() {
 // Change Password Function
 // ============================================
 
+function togglePasswordForm() {
+    const container = document.getElementById("password-form-container");
+    const btn = document.getElementById("toggle-password-btn");
+    if (container.style.display === "none" || container.style.display === "") {
+        container.style.display = "block";
+        btn.textContent = "Cancel Update";
+    } else {
+        container.style.display = "none";
+        btn.textContent = "Update password";
+        // Clear fields on cancel
+        document.getElementById("answer1").value = "";
+        document.getElementById("answer2").value = "";
+        document.getElementById("new-password").value = "";
+        document.getElementById("confirm-password").value = "";
+    }
+}
+
 async function changePassword() {
 
+    const answer1         = document.getElementById("answer1").value.trim();
+    const answer2         = document.getElementById("answer2").value.trim();
     const newPassword     = document.getElementById("new-password").value.trim();
     const confirmPassword = document.getElementById("confirm-password").value.trim();
 
     // Validation
-    if (!newPassword || !confirmPassword) {
-        alert("Please fill in both fields.");
+    if (!answer1 || !answer2 || !newPassword || !confirmPassword) {
+        alert("Please fill in all fields (security answers and passwords).");
         return;
     }
 
@@ -81,6 +100,8 @@ async function changePassword() {
                 "Authorization": `Bearer ${token}`
             },
             body: JSON.stringify({
+                answer1: answer1,
+                answer2: answer2,
                 new_password: newPassword
             })
         });
@@ -93,9 +114,8 @@ async function changePassword() {
 
         alert("Password updated successfully!");
 
-        // Clear fields
-        document.getElementById("new-password").value     = "";
-        document.getElementById("confirm-password").value = "";
+        // Clear fields and hide form
+        togglePasswordForm();
 
     } catch (err) {
         console.error("Password Change Error:", err);
