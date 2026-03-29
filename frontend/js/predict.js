@@ -26,7 +26,12 @@ async function predictCrop(event) {
     // --- Get JWT token from localStorage ---
     const token = localStorage.getItem("token");
     if (!token) {
-        alert("Session expired. Please login again.");
+        await Swal.fire({
+            icon: "warning",
+            title: "Session Expired",
+            text: "Please login again.",
+            confirmButtonColor: "#2ecc71"
+        });
         window.location.href = "login.html";
         return;
     }
@@ -49,7 +54,12 @@ async function predictCrop(event) {
         const result = await response.json();
 
         if (!response.ok) {
-            alert(result.detail || "Prediction failed. Try again.");
+            Swal.fire({
+                icon: "error",
+                title: "Prediction Error",
+                text: result.detail || "Prediction failed. Try again.",
+                confirmButtonColor: "#2ecc71"
+            });
             btn.textContent = "🌱 Get Recommendation";
             btn.disabled = false;
             return;
@@ -63,7 +73,12 @@ async function predictCrop(event) {
         window.location.href = "result.html";
 
     } catch (error) {
-        alert("Cannot connect to server. Make sure FastAPI is running.");
+        Swal.fire({
+            icon: "error",
+            title: "Connection Failed",
+            text: "Cannot connect to server. Make sure FastAPI is running or the server is awake.",
+            confirmButtonColor: "#2ecc71"
+        });
         console.error(error);
         btn.textContent = "🌱 Get Recommendation";
         btn.disabled = false;
