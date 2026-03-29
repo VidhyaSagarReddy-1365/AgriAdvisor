@@ -90,7 +90,7 @@ window.onload = function () {
     // ── Summary bar ──
     const topCrop  = crops[0];
     const topConf  = topCrop.confidence.toFixed(1);
-    const topPrice = typeof topCrop.price === "number" ? `₹${topCrop.price}` : "N/A";
+    const topPrice = typeof topCrop.price === "number" ? `₹${topCrop.price}` : topCrop.price || "N/A";
 
     document.getElementById("result-summary").innerHTML = `
         <div class="summary-item">
@@ -117,7 +117,7 @@ window.onload = function () {
         const cropKey   = crop.name.toLowerCase();
         const emoji     = CROP_EMOJI[cropKey]  || "🌱";
         const imgUrl    = CROP_IMAGES[cropKey] || null;
-        const price     = typeof crop.price === "number" ? `₹${crop.price}` : "N/A";
+        const price     = typeof crop.price === "number" ? `₹${crop.price}` : crop.price || "N/A";
         const conf      = crop.confidence.toFixed(2);
         const confLevel = getConfidenceLevel(crop.confidence);
 
