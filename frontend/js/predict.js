@@ -37,7 +37,7 @@ async function predictCrop(event) {
     btn.disabled = true;
 
     try {
-        const response = await fetch(`${API_URL}/predict`, {
+        const response = await fetch(`${API_BASE_URL}/predict`, {
             method: "POST",
             headers: {
                 "Content-Type":  "application/json",

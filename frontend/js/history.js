@@ -12,7 +12,7 @@ window.onload = async function () {
     const list  = document.getElementById("history-list");
 
     try {
-        const response = await fetch(`${API_URL}/history`, {
+        const response = await fetch(`${API_BASE_URL}/history`, {
             headers: { "Authorization": `Bearer ${token}` }
         });
 

@@ -17,7 +17,7 @@ async function loadProfile() {
     }
 
     try {
-        const response = await fetch(`${API_URL}/profile`, {
+        const response = await fetch(`${API_BASE_URL}/profile`, {
             method: "GET",
             headers: {
                 "Authorization": `Bearer ${token}`
@@ -74,7 +74,7 @@ async function changePassword() {
     }
 
     try {
-        const response = await fetch(`${API_URL}/change-password`, {
+        const response = await fetch(`${API_BASE_URL}/change-password`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
