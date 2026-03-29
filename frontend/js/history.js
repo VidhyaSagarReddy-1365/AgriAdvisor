@@ -48,9 +48,12 @@ window.onload = async function () {
                 minute: "2-digit"
             });
 
-            const price = typeof topCrop.price === "number"
-                ? `₹${topCrop.price}`
-                : topCrop.price;
+            let priceText = "N/A";
+            if (typeof topCrop.price === "number") {
+                priceText = `₹${topCrop.price}`;
+            } else if (typeof topCrop.price === "string") {
+                priceText = topCrop.price.startsWith("Err:") ? "N/A" : topCrop.price;
+            }
 
             const card = document.createElement("div");
             card.className = "history-item";
@@ -61,7 +64,7 @@ window.onload = async function () {
                 </div>
                 <div class="history-details">
                     <span><strong>Confidence:</strong> ${topCrop.confidence.toFixed(2)}%</span>
-                    <span><strong>Price:</strong> ${price}</span>
+                    <span><strong>Price:</strong> ${priceText}</span>
                     <span><strong>N/P/K:</strong> ${record.inputs.n} / ${record.inputs.p} / ${record.inputs.k}</span>
                     <span><strong>pH:</strong> ${record.inputs.ph}</span>
                     <span><strong>Rainfall:</strong> ${record.inputs.rainfall} mm</span>

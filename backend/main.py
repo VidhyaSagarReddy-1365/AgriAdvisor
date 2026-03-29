@@ -84,7 +84,7 @@ def predict_price(crop_name: str):
         import traceback
         print(f"Prophet error for {crop_name}: {e}")
         traceback.print_exc()
-        return f"Err: {type(e).__name__} {e}"
+        return "N/A"
 
 
 # ============================================
